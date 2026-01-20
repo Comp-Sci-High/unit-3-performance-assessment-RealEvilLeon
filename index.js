@@ -131,7 +131,7 @@ const pokemonAnimeFacts = {
   }
 };
 
-
+app.use(express.static(__dirname + "/frontend"))
 
 // my routes
 app.get("/", (req, res) =>{
@@ -144,7 +144,7 @@ app.get("/docs", (req, res) =>{
 
 
 app.get("/pokemon/:name", (req, res) =>{
-    res.status(200).send("<center><h1>Pick a pokemon! you have 10 options.</h1></center>")
+    res.status(200).sendFile(__dirname +"/frontend/")
 })
 
 
@@ -152,6 +152,7 @@ app.get("/pokemon/:name", (req, res) =>{
 
 app.get((req, res, next) =>{
     console.log(req.method + " " + req.url)
+    next()
 })
 
 
