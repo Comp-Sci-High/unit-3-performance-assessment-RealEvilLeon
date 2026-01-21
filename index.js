@@ -135,16 +135,16 @@ app.use(express.static(__dirname + "/frontend"))
 
 // my routes
 app.get("/", (req, res) =>{
-    res.status(200).send("<center><h1>Welcome To The Pokemon API!</h1></center>")
+    res.status(200).sendFile(__dirname + "/frontend/index.html")
 })
 
 app.get("/docs", (req, res) =>{
-    res.status(200).send("<h1>/pokemon/name - returns a pokemon’s data based on the name. /pokemon/shows - returns the name of a random pokemon show</h1>")
+    res.status(200).sendFile(__dirname + "/frontend/docs")
 })
 
 
 app.get("/pokemon/:name", (req, res) =>{
-    res.status(200).sendFile(__dirname +"/frontend/")
+    res.status(200).sendFile(__dirname +"/frontend/pokemonGen.html")
 })
 
 
