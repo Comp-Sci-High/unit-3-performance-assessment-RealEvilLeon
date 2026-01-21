@@ -99,64 +99,73 @@ const pokemonStats = {
 
 
 const pokemonAnimeFacts = {
-  "Pokémon: Indigo League": {
+  "Pokémon:IndigoLeague": {
     funFact: "Ash was originally planned to win more Gym Battles on his first try, but the anime kept his struggles to make him more relatable."
   },
-  "Pokémon: Adventures in the Orange Islands": {
+  "Pokémon:AdventuresintheOrangeIslands": {
     funFact: "This arc introduced unconventional Gym challenges that focused on problem-solving rather than pure battling."
   },
-  "Pokémon: The Johto Journeys": {
+  "Pokémon:TheJohtoJourneys": {
     funFact: "This series is the longest saga in the anime, spanning multiple seasons and over 150 episodes."
   },
-  "Pokémon: Advanced": {
+  "Pokémon:Advanced": {
     funFact: "May was the first main female companion to have a goal unrelated to Gym battles, introducing Pokémon Contests."
   },
-  "Pokémon: Diamond and Pearl": {
+  "Pokémon:DiamondandPearl": {
     funFact: "Ash’s rivalry with Paul is often considered one of the most mature and complex in the entire anime."
   },
-  "Pokémon: Black & White": {
+  "Pokémon:Black&White": {
     funFact: "This series rebooted Ash’s character to feel more like a beginner for a new generation of viewers."
   },
-  "Pokémon XY": {
+  "PokémonXY": {
     funFact: "Ash-Greninja was created specifically for the anime before later appearing in the video games."
   },
-  "Pokémon Sun & Moon": {
+  "PokémonSun&Moon": {
     funFact: "This is the first Pokémon anime series to feature a school setting instead of a traditional Gym journey."
   },
-  "Pokémon Journeys": {
+  "PokémonJourneys": {
     funFact: "Ash travels across all known regions rather than staying in a single one, revisiting past characters."
   },
-  "Pokémon Horizons": {
+  "PokémonHorizons": {
     funFact: "This is the first main Pokémon anime series that does not star Ash Ketchum as the protagonist."
   }
 };
 
-app.use(express.static(__dirname + "/frontend"))
+
+
+
 
 // my routes
 app.get("/", (req, res) =>{
-    res.status(200).sendFile(__dirname + "/frontend/index.html")
+    res.status(200).send("Welcome To The Pokemon API!")
 })
 
 app.get("/docs", (req, res) =>{
-    res.status(200).sendFile(__dirname + "/frontend/docs")
+    res.status(200).send("/pokemon/name - returns a pokemon’s data based on the name. /pokemon/shows - returns the name of a random pokemon show")
 })
 
 
 app.get("/pokemon/:name", (req, res) =>{
-    res.status(200).sendFile(__dirname +"/frontend/pokemonGen.html")
+    res.status(200).json(pokemonStats[req.params.name])
 })
+
+
+app.get("/pokemon/shows/:name", (req, res) =>{
+    res.status(200).json(pokemonAnimeFacts[req.params.name])
+})
+
+
 
 
 // my middleware :D
 
-app.get((req, res, next) =>{
+app.use((req, res, next) =>{
     console.log(req.method + " " + req.url)
     next()
 })
 
 
-app.get((req, res, next) =>{
+app.use((req, res, next) =>{
     res.status(404).send("<h1>404 NOT FOUND</h1>")
 })
 
